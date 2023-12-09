@@ -1,6 +1,6 @@
 import { Schema, model, connect } from 'mongoose';
 
-export type Name = {
+export type FullName = {
     firstName: string;
     lastName: string;
   }
@@ -20,7 +20,7 @@ export type User = {
     userId: number;
     username: string;
     password: string;
-    fullName: Name;
+    fullName: FullName;
     age: number;
     email: string;
     isActive: boolean;
