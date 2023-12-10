@@ -1,4 +1,4 @@
-import { Schema, model, connect } from 'mongoose';
+import { Model } from "mongoose";
 
 export type FullName = {
     firstName: string;
@@ -29,3 +29,7 @@ export type User = {
     orders?: Order[];
     isDeleted?: boolean;
   };
+
+  export interface UserModel extends Model<User>{
+
+  }

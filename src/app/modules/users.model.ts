@@ -1,5 +1,5 @@
 import { Schema, model, connect } from 'mongoose';
-import { Address, FullName, Order, User } from './users/users.inteface';
+import { Address, FullName, Order, User, UserModel } from './users/users.inteface';
 
 const fullNameSchema = new Schema<FullName>(
     {
@@ -49,7 +49,7 @@ const fullNameSchema = new Schema<FullName>(
       },
     },
   );
-const userSchema = new Schema<User>({
+const userSchema = new Schema<User,UserModel>({
     userId: {
       type: Number,
       required: [true, "userId is required"],
@@ -103,5 +103,6 @@ const userSchema = new Schema<User>({
   
 
 
-  const User = model<User>("User", userSchema); 
+  const User = model<User, UserModel>("User", userSchema); 
+
   export default User;

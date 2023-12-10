@@ -7,8 +7,11 @@ const app: Application = express();
 app.use(express.json());
 app.use(cors());
 
-app.get('/', (req: Request, res: Response) => {
-  res.send('hello user');
-});
+const getAController = (req: Request, res: Response) => {
+  res.status(200).send(`server is running`);
+}
+
+app.get("/", getAController);
+
 
 export default app;
