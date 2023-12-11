@@ -51,7 +51,11 @@ const getSingleUser = async (req:Request,res:Response)=>{
     data:data,
 })
   }catch(err){
-    console.log(err)
+    res.status(500).json({
+      success:false,
+      massage:'something went wrong',
+      error:err,
+  })
   }
 }
 export const UserControllers ={
