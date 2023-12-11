@@ -12,6 +12,12 @@ const getAllUsersFromDB = async ()=>{
     const data =await UserModel.find();
     return data;
 }
+
+//get single user
+const getSingleUserFromDB = async (userId:string|number)=>{
+    const data =await UserModel.findOne({userId});
+    return data;
+}
 export const UserServices={
-    createUserIntoDB,getAllUsersFromDB,
+    createUserIntoDB,getAllUsersFromDB,getSingleUserFromDB,
 }

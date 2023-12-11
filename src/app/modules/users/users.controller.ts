@@ -37,6 +37,23 @@ const getAllUsers = async (req:Request,res:Response)=>{
   }
 } 
 
+
+const getSingleUser = async (req:Request,res:Response)=>{
+  try{
+    const{ userId }= req.params
+  
+    //will cal service function to send data
+    const data =await UserServices.getSingleUserFromDB(userId)
+   //send res
+   res.status(200).json({
+    success:true,
+    massage:'user is retrive successfully',
+    data:data,
+})
+  }catch(err){
+    console.log(err)
+  }
+}
 export const UserControllers ={
-    createUser,getAllUsers,
+    createUser,getAllUsers,getSingleUser,
 }
