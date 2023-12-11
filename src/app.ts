@@ -1,17 +1,25 @@
-import express, { Application, Request, Response } from 'express';
-import cors from 'cors';
 
-const app: Application = express();
+import express, { Application, Request, Response } from "express"
+import cors from "cors"
+import { UserRoutes } from "./app/modules/users/users.routes";
+
+const app:Application = express()
 
 //parsers
 app.use(express.json());
-app.use(cors());
+app.use(cors())
 
-const getAController = (req: Request, res: Response) => {
-  res.status(200).send(`server is running`);
+//application routes
+app.use('/api/users',UserRoutes)
+
+const getAController =(req:Request,res:Response)=>{
+   
+  res.send(`server is running...`);
 }
-
-app.get("/", getAController);
+app.get('/',getAController )
+  
 
 
 export default app;
+
+

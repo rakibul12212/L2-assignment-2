@@ -1,28 +1,26 @@
+import { User } from './users.inteface';
 import { Request, Response } from "express";
-import { UserServices } from "./users.services";
+import { UserServices } from "./users.service";
 
-const createUser = async (req:Request,res:Response)=>{
-   try{
-    const userData = req.body
+const createUser =async (req:Request,res:Response)=>{
+  try{
+    const {user:userData} =req.body
 
-    const user =await UserServices.createUserIntoDB(userData);
+    //will cal service function to send data
+    const data =await UserServices.createUserIntoDB(userData)
 
+    //send res
     res.status(200).json({
-        success: true,
-        message: "User created successfully!",
-        data: user,
-      });
-   } catch (err) {
-    res.status(500).send({
-      success: false,
-      message: "User not created successfully",
-      error: {
-        code: 500,
-        description: err,
-      },
-    });
+        success:true,
+        massage:'user is created successfully',
+        data:data,
+    })
+  }catch(err){
+    console.log(err)
   }
+
 }
-export const UserController={
+
+export const UserControllers ={
     createUser
 }

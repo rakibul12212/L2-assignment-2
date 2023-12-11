@@ -1,22 +1,20 @@
-import { Model } from "mongoose";
+import { Schema,model,connect } from "mongoose";
 
-export type FullName = {
+export type FullName ={
     firstName: string;
     lastName: string;
-  }
-  
-export type Address = {
+}
+export interface Address {
     street: string;
     city: string;
     country: string;
   }
-  
-export type Order = {
+  export interface Order {
     productName: string;
     price: number;
     quantity: number;
   }
-export type User = {
+export type User={
     userId: number;
     username: string;
     password: string;
@@ -28,8 +26,4 @@ export type User = {
     address: Address;
     orders?: Order[];
     isDeleted?: boolean;
-  };
-
-  export interface UserModel extends Model<User>{
-
-  }
+}
