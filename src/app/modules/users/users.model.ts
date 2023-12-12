@@ -1,6 +1,6 @@
 import { Schema,model } from "mongoose";
 import { Address, FullName, Order, User } from "./users.inteface";
-
+import validator from 'validator';
 
 const fullNameSchema = new Schema<FullName>(
     {
@@ -8,12 +8,17 @@ const fullNameSchema = new Schema<FullName>(
         type: String,
         required:[ true,'first name is requred'],
         trim:true,
+        validate:(value:string)=>validator.isAlpha(value),
+        massage:'{VALUE} is not valid',
         
       },
       lastName: {
         type: String,
         required: [true,"last name is required"],
         trim:true,
+        validate:(value:string)=>validator.isAlpha(value),
+        massage:'{VALUE} is not valid',
+        
       },
     },
   );
@@ -91,6 +96,9 @@ const fullNameSchema = new Schema<FullName>(
       type: String,
       required: [true, 'email is required'],
       trim:true,
+      validate:(value:string)=>validator.isEmail(value),
+        massage:'{VALUE} is not valid email type',
+      
     },
     isActive: {
       type: Boolean,
