@@ -60,7 +60,7 @@ const updateUserByIdIntoDB = async (userId: number, userData: TPartialUser) => {
 
   console.log(updatedDocument);
 
-  const result = await User.findOneAndUpdate(
+  const data = await User.findOneAndUpdate(
     { userId },
     { $set: updatedDocument },
     {
@@ -70,7 +70,7 @@ const updateUserByIdIntoDB = async (userId: number, userData: TPartialUser) => {
     },
   );
 
-  return result;
+  return data;
 };
 export const UserServices = {
   createUserIntoDB,
