@@ -7,11 +7,7 @@ const createUser =async (req:Request,res:Response)=>{
   try{
     const {user:userData} =req.body;
     const validateUser =userValidationSchema.parse(userData)
-    
-    //will cal service function to send data
     const data =await UserServices.createUserIntoDB(validateUser)
-
-    //send res
     res.status(200).json({
         success:true,
         massage:'user is created successfully',
@@ -30,11 +26,7 @@ const createUser =async (req:Request,res:Response)=>{
 //get all user
 const getAllUsers = async (req:Request,res:Response)=>{
   try{
-  
-    //will cal service function to send data
     const data =await UserServices.getAllUsersFromDB()
-
-   //send res
    res.status(200).json({
     success:true,
     massage:'users are retrive successfully',
@@ -58,11 +50,7 @@ const getAllUsers = async (req:Request,res:Response)=>{
 const getSingleUser = async (req:Request,res:Response)=>{
   try{
     const{ userId }= req.params
-  
-    //will cal service function to send data
     const data =await UserServices.getSingleUserFromDB(userId)
-    
-   //send res
    res.status(200).json({
     success:true,
     massage:'user is retrive successfully',

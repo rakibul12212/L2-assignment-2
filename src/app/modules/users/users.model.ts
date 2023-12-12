@@ -152,12 +152,13 @@ const fullNameSchema = new Schema<TFullName>(
   })
 
 
-  //post save middleware /hook 
-  userSchema.post('save',function(){
-    console.log(this,'post hook : we saved our data');
+  //remove password with post save middleware /hook 
+  userSchema.post('save',function(doc,next){
+    doc.password = ''
+    next()
   })
 
-  
+
 
 //creating a custom static method
 userSchema.statics.isUserExists = async function(userId:number){

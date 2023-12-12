@@ -1,5 +1,7 @@
 import { TUser } from "./users.inteface";
 import {  User } from "./users.model";
+import bcrypt from "bcrypt";
+import config from "../../config";
 
 //create data
 const createUserIntoDB=async (userData:TUser)=>{
@@ -21,8 +23,6 @@ const getSingleUserFromDB = async (userId:string|number)=>{
     const data =await User.findOne({userId});
     return data;
 }
-
-//update user
 
 export const UserServices={
     createUserIntoDB,getAllUsersFromDB,getSingleUserFromDB,

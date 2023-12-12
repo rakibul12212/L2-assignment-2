@@ -1,6 +1,5 @@
-import { UserModel } from './users.inteface';
+
 import {  Model } from "mongoose";
-import { number } from "zod";
 
 export interface TFullName {
     firstName: string;
@@ -32,5 +31,6 @@ export type TUser={
 
 //for creating static
 export interface UserModel extends Model<TUser> {
+  // eslint-disable-next-line no-unused-vars
   isUserExists(userId: number): Promise<TUser | null>;
 }
