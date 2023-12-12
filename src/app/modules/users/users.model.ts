@@ -1,8 +1,9 @@
 import { Schema,model } from "mongoose";
-import { Address, FullName, Order, User } from "./users.inteface";
+import { IAddress, TFullName, TOrder, TUser, UserMethods, UserModel } from "./users.inteface";
 import validator from 'validator';
-
-const fullNameSchema = new Schema<FullName>(
+import bcrypt from 'bcrypt'
+import config from "../../config";
+const fullNameSchema = new Schema<TFullName>(
     {
       firstName: {
         type: String,
@@ -21,9 +22,12 @@ const fullNameSchema = new Schema<FullName>(
         
       },
     },
+    {
+      _id: false,
+    },
   );
   
-  const addressSchema = new Schema<Address>(
+  const addressSchema = new Schema<IAddress>(
     {
       street: {
         type: String,
@@ -40,10 +44,13 @@ const fullNameSchema = new Schema<FullName>(
         required:[ true,'country  is required'],
         trim:true,
       },
-    }
+    },
+    {
+      _id: false,
+    },
   );
   
-  const orderSchema = new Schema<Order>(
+  const orderSchema = new Schema<TOrder>(
     {
       productName: {
         type: String,
@@ -61,11 +68,14 @@ const fullNameSchema = new Schema<FullName>(
         required:[ true,' quantity is required' ],
         trim:true,
       },
-    }
+    },
+    {
+      _id: false,
+    },
    
   );
   
-  const userSchema = new Schema<User>({
+  const userSchema = new Schema<TUser,UserModel>({
     userId: {
       type: Number,unique: true,
       required: [true, "userId is required"],
@@ -129,4 +139,30 @@ const fullNameSchema = new Schema<FullName>(
   });
   
 
- export const UserModel =model<User>('User',userSchema)
+
+  //pre save middleware /hook 
+  userSchema.pre('save',async function(next){
+   // eslint-disable-next-line @typescript-eslint/no-this-alias
+   const user = this
+
+
+ // hasing password and save into db
+    user.password = await bcrypt.hash(user.password,Number(config.bcrypt_salt_rounds));
+    next()
+  })
+
+
+  //post save middleware /hook 
+  userSchema.post('save',function(){
+    console.log(this,'post hook : we saved our data');
+  })
+
+  
+
+//creating a custom static method
+userSchema.statics.isUserExists = async function(userId:number){
+  const existingUser = await User.findOne({userId})
+  return existingUser;
+}
+
+ export const User =model<TUser,UserModel>('User',userSchema)

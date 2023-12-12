@@ -1,29 +1,36 @@
-import { Schema,model,connect } from "mongoose";
+import { UserModel } from './users.inteface';
+import {  Model } from "mongoose";
+import { number } from "zod";
 
-export type FullName ={
+export interface TFullName {
     firstName: string;
     lastName: string;
 }
-export interface Address {
+export interface IAddress {
     street: string;
     city: string;
     country: string;
   }
-  export interface Order {
+  export interface TOrder {
     productName: string;
     price: number;
     quantity: number;
   }
-export type User={
+export type TUser={
     userId: number;
     username: string;
     password: string;
-    fullName: FullName;
+    fullName: TFullName;
     age: number;
     email: string;
     isActive: boolean;
     hobbies: string[];
-    address: Address;
-    orders?: Order[];
+    address: IAddress;
+    orders?: TOrder[];
     isDeleted?: boolean;
+}
+
+//for creating static
+export interface UserModel extends Model<TUser> {
+  isUserExists(userId: number): Promise<TUser | null>;
 }

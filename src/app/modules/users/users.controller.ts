@@ -17,15 +17,12 @@ const createUser =async (req:Request,res:Response)=>{
         massage:'user is created successfully',
         data:data,
     })
-  }catch (err) {
-    res.status(500).send({
-      success: false,
-      message: "user not created successfully",
-      error: {
-        code: 500,
-        description: err,
-      },
-    });
+  }catch(err:any){
+    res.status(500).json({
+      success:false,
+      massage: err.massage || 'something went wrong',
+      error:err,
+  })
   }
 };
 
