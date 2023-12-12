@@ -16,4 +16,11 @@ const getAController = (req: Request, res: Response) => {
 };
 app.get('/', getAController);
 
+app.all("*", (req: Request, res: Response) => {
+  res.status(404).send({
+     success: false,
+     message: "Route not found ",
+  });
+});
+
 export default app;
