@@ -14,14 +14,14 @@ const fullNameSchema = new Schema<IFullName>(
   {
     firstName: {
       type: String,
-      required: [true, 'first name is requred'],
+      required: [true, 'first name requred'],
       trim: true,
       validate: (value: string) => validator.isAlpha(value),
       massage: '{VALUE} is not valid',
     },
     lastName: {
       type: String,
-      required: [true, 'last name is required'],
+      required: [true, 'last name required'],
       trim: true,
       validate: (value: string) => validator.isAlpha(value),
       massage: '{VALUE} is not valid',
@@ -36,17 +36,17 @@ const addressSchema = new Schema<IAddress>(
   {
     street: {
       type: String,
-      required: [true, 'street name is required'],
+      required: [true, 'street name required'],
       trim: true,
     },
     city: {
       type: String,
-      required: [true, 'city name is required'],
+      required: [true, 'city name required'],
       trim: true,
     },
     country: {
       type: String,
-      required: [true, 'country  is required'],
+      required: [true, 'country required'],
       trim: true,
     },
   },
@@ -59,19 +59,19 @@ const orderSchema = new Schema<IOrder>(
   {
     productName: {
       type: String,
-      required: [true, 'product name is required'],
+      required: [true, 'product name required'],
       trim: true,
     },
     price: {
       type: Number,
       min: 0,
-      required: [true, 'price is required'],
+      required: [true, 'price required'],
       trim: true,
     },
     quantity: {
       type: Number,
       min: [0, 'min quantity 1'],
-      required: [true, ' quantity is required'],
+      required: [true, ' quantity required'],
       trim: true,
     },
   },
@@ -84,33 +84,33 @@ const userSchema = new Schema<TUser, UserModel>({
   userId: {
     type: Number,
     unique: true,
-    required: [true, 'userId is required'],
+    required: [true, 'userId required'],
     trim: true,
   },
   username: {
     type: String,
-    required: [true, 'username is required'],
+    required: [true, 'username required'],
     trim: true,
   },
   password: {
     type: String,
-    required: [true, 'password is required'],
+    required: [true, 'password required'],
     trim: true,
   },
   fullName: {
     type: fullNameSchema,
-    required: [true, 'fullname is required'],
+    required: [true, 'fullname required'],
     trim: true,
   },
   age: {
     type: Number,
-    required: [true, 'age is required'],
+    required: [true, 'age required'],
     trim: true,
     min: [1, 'min age 1'],
   },
   email: {
     type: String,
-    required: [true, 'email is required'],
+    required: [true, 'email required'],
     trim: true,
     validate: (value: string) => validator.isEmail(value),
     massage: '{VALUE} is not valid email type',
@@ -124,13 +124,13 @@ const userSchema = new Schema<TUser, UserModel>({
   hobbies: [
     {
       type: String,
-      required: [true, 'hobbies is required'],
+      required: [true, 'hobbies required'],
       trim: true,
     },
   ],
   address: {
     type: addressSchema,
-    required: [true, 'address is required'],
+    required: [true, 'address required'],
     trim: true,
   },
   orders: [
@@ -147,8 +147,7 @@ const userSchema = new Schema<TUser, UserModel>({
 userSchema.pre('save', async function (next) {
   // eslint-disable-next-line @typescript-eslint/no-this-alias
   const user = this;
-
-  // hasing password
+  // hash password
   user.password = await bcrypt.hash(
     user.password,
     Number(config.bcrypt_salt_rounds),
