@@ -1,8 +1,9 @@
 import { Request, Response } from 'express';
 import { UserServices } from './users.service';
-import userValidationSchema, {updateValidationSchema,} from './users.zodValidation';
+import userValidationSchema, {
+  updateValidationSchema,
+} from './users.zodValidation';
 import { TPartialUser } from './users.inteface';
-
 
 //create data
 const createUser = async (req: Request, res: Response) => {
@@ -10,9 +11,10 @@ const createUser = async (req: Request, res: Response) => {
     const { user: userData } = req.body;
     const validateUser = userValidationSchema.parse(userData);
     const data = await UserServices.createUserIntoDB(validateUser);
+
     const { password, isDeleted, _id, orders, ...others } = data.toObject();
     console.log(password, isDeleted, _id, orders);
-    
+
     res.status(200).json({
       success: true,
       massage: 'user is created successfully',
@@ -31,7 +33,6 @@ const createUser = async (req: Request, res: Response) => {
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const data = await UserServices.getAllUsersFromDB();
-    
     res.status(200).json({
       success: true,
       massage: 'users are retrive successfully',
@@ -133,7 +134,8 @@ const updateUserById = async (req: Request, res: Response) => {
     const userId = parseInt(req.params.userId);
     const userData = req.body;
 
-    const validateUserData: TPartialUser =updateValidationSchema.parse(userData);
+    const validateUserData: TPartialUser =
+      updateValidationSchema.parse(userData);
     const user = await UserServices.getSingleUserFromDB(userId);
 
     if (!user) {
@@ -150,7 +152,7 @@ const updateUserById = async (req: Request, res: Response) => {
     // update data:
     const data = await UserServices.updateUserByIdIntoDB(
       userId,
-      validateUserData
+      validateUserData,
     );
 
     if (!data) {

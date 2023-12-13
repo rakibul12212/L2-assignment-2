@@ -16,10 +16,10 @@ const getAController = (req, res) => {
     res.send(`server is running...`);
 };
 app.get('/', getAController);
-app.all("*", (req, res) => {
+app.all('*', (req, res) => {
     res.status(404).send({
         success: false,
-        message: "Route not found ",
+        message: 'Route not found ',
     });
 });
 exports.default = app;

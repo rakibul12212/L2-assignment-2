@@ -8,24 +8,24 @@ const createUserIntoDB = async (userData: TUser) => {
   if (await User.isUserExists(userData.userId)) {
     throw new Error('user already exists');
   }
-  const data = await User.create(userData); 
+  const data = await User.create(userData);
   return data;
 };
 
 //get all data
 const getAllUsersFromDB = async () => {
   const data = await User.aggregate([
-     { $match: {} },
-     {
-        $project: {
-           username: 1,
-           fullName: 1,
-           age: 1,
-           email: 1,
-           address: 1,
-           _id: 0,
-        },
-     },
+    { $match: {} },
+    {
+      $project: {
+        username: 1,
+        fullName: 1,
+        age: 1,
+        email: 1,
+        address: 1,
+        _id: 0,
+      },
+    },
   ]);
 
   return data;
@@ -71,7 +71,7 @@ const updateUserByIdIntoDB = async (userId: number, userData: TPartialUser) => {
     }
   }
 
-  console.log(updatedDocument);
+  // console.log(updatedDocument);
 
   const data = await User.findOneAndUpdate(
     { userId },
