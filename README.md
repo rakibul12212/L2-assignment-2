@@ -7,7 +7,7 @@
 - check prettie : npm run prettier
 - fix prettie : npm run prettier:fix
 
-  #technologies
+  # technologies
   - Express
   - TypeScript
   - Mongoose
@@ -177,5 +177,5 @@
     "data": null
 }
 
-  ##vercel deploy link : https://assignment-2-weld.vercel.app/
+  ## vercel deploy link : https://assignment-2-weld.vercel.app/
 
