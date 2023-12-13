@@ -10,10 +10,13 @@ const createUser = async (req: Request, res: Response) => {
     const { user: userData } = req.body;
     const validateUser = userValidationSchema.parse(userData);
     const data = await UserServices.createUserIntoDB(validateUser);
+    const { password, isDeleted, _id, orders, ...others } = data.toObject();
+    console.log(password, isDeleted, _id, orders);
+    
     res.status(200).json({
       success: true,
       massage: 'user is created successfully',
-      data: data,
+      data: others,
     });
   } catch (err: any) {
     res.status(500).json({
@@ -28,6 +31,7 @@ const createUser = async (req: Request, res: Response) => {
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const data = await UserServices.getAllUsersFromDB();
+    
     res.status(200).json({
       success: true,
       massage: 'users are retrive successfully',
