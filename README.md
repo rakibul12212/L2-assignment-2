@@ -46,7 +46,7 @@
 
 }
 
-- res
+- res :
   {
     "success": true,
     "massage": "user is created successfully",
